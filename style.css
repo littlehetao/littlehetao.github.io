@@ -180,27 +180,27 @@ main {
 
 /* 不同特质的淡色背景 */
 .card-goal {
-    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    background: linear-gradient(135deg, #fff9e6 0%, #ffe9b3 100%);
 }
 
 .card-simple {
-    background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+    background: linear-gradient(135deg, #f0f3f5 0%, #dfe6e9 100%);
 }
 
 .card-delicate {
-    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+    background: linear-gradient(135deg, #fef5fb 0%, #fde2f3 100%);
 }
 
 .card-rules {
-    background: linear-gradient(135deg, #a29bfe 0%, #74b9ff 100%);
+    background: linear-gradient(135deg, #ebe9fe 0%, #dfe6ff 100%);
 }
 
 .card-observe {
-    background: linear-gradient(135deg, #55efc4 0%, #81ecec 100%);
+    background: linear-gradient(135deg, #e8fcf5 0%, #d4f8ec 100%);
 }
 
 .card-boundary {
-    background: linear-gradient(135deg, #ffeaa7 0%, #ffcccc 100%);
+    background: linear-gradient(135deg, #e8f8f8 0%, #d9f2ed 100%);
 }
 
 .card:hover {
@@ -317,6 +317,63 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
+}
+
+/* Preferences Grid */
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.preference-card {
+    background: linear-gradient(135deg, #fff9e6 0%, #ffe4b3 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.preference-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.preference-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.preference-card h3 {
+    color: #ff6b6b;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.preference-card p {
+    color: #2d3436;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.preference-video {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.preference-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .quote-card {
