@@ -199,6 +199,10 @@ main {
     background: linear-gradient(135deg, #55efc4 0%, #81ecec 100%);
 }
 
+.card-boundary {
+    background: linear-gradient(135deg, #ffeaa7 0%, #ffcccc 100%);
+}
+
 .card:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
