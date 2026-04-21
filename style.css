@@ -48,22 +48,15 @@ nav {
     z-index: 100;
 }
 
-nav .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
 nav a {
     color: #ff6b6b;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    margin: 0 0.3rem;
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.5rem;
     border-radius: 20px;
     transition: all 0.3s ease;
+    display: inline-block;
     font-weight: 500;
-    white-space: nowrap;
 }
 
 nav a:hover {
@@ -517,16 +510,5 @@ footer {
 
     .section h2 {
         font-size: 1.5rem;
-    }
-    
-    .preference-video,
-    .preference-image {
-        max-width: 100%;
-    }
-    
-    .card,
-    .preference-card,
-    .quote-card {
-        padding: 1.5rem;
     }
 }
