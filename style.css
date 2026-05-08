@@ -176,6 +176,13 @@ main {
     margin-top: 2rem;
 }
 
+.kids-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
 .card {
     color: #2d3436;
     padding: 2rem;
@@ -586,8 +593,9 @@ footer {
     }
     
     /* 小朋友卡片 - 手机上每行2个 */
-    .grid[style*="grid-template-columns: repeat(5, 1fr)"] {
+    .kids-grid {
         grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem;
     }
     
     /* 普通卡片网格 - 手机上单列 */
@@ -657,7 +665,7 @@ footer {
     }
     
     /* 小朋友卡片 - 更小屏幕上单列 */
-    .grid[style*="grid-template-columns: repeat(5, 1fr)"] {
+    .kids-grid {
         grid-template-columns: 1fr !important;
     }
 }
