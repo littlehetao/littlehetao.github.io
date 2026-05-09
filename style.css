@@ -295,6 +295,8 @@ main {
 .timeline {
     position: relative;
     padding: 2rem 0;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .timeline::before {
@@ -327,24 +329,39 @@ main {
     justify-content: center;
     font-size: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .timeline-content {
     background: white;
-    padding: 1.5rem;
-    border-radius: 10px;
+    padding: 2rem;
+    border-radius: 15px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     border-left: 4px solid #ff9a56;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .timeline-content h3 {
     color: #ff6b6b;
     margin-bottom: 0.5rem;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+}
+
+.timeline-content .date {
+    color: #ff9a56;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 .timeline-content p {
     color: #555;
+    line-height: 1.8;
 }
 
 /* Quotes Container */
@@ -798,6 +815,36 @@ footer {
         font-size: 1.2rem;
     }
     
+    /* 时间轴 - 手机适配 */
+    .timeline {
+        padding-left: 0;
+    }
+    
+    .timeline::before {
+        left: 20px;
+        width: 3px;
+    }
+    
+    .timeline-item {
+        padding-left: 60px;
+    }
+    
+    .timeline-marker {
+        left: 0;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        border-width: 3px;
+    }
+    
+    .timeline-content {
+        padding: 1.2rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.2rem;
+    }
+    
     /* 照片集锦 - 手机上单列 */
     .photo-gallery-horizontal,
     .photo-gallery-vertical {
@@ -825,6 +872,15 @@ footer {
     .preference-video,
     .preference-image {
         max-width: 100%;
+    }
+    
+    /* 返回顶部按钮 */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
     }
 }
 
