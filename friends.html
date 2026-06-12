@@ -363,8 +363,8 @@
                     item.style.setProperty('--parallax-speed', parallaxSpeed);
                 }
                 
-                // 持续的视差效果
-                if (item.classList.contains('visible')) {
+                // 持续的视差效果（移动端禁用以避免抖动）
+                if (item.classList.contains('visible') && !isMobile) {
                     const itemTop = rect.top;
                     const parallaxOffset = (window.innerHeight - itemTop) * 0.05;
                     const marker = item.querySelector('.timeline-marker');
@@ -394,6 +394,153 @@
                 content.style.setProperty('--mouse-y', 0.5);
             });
         });
+
+        // 📱 手机端交互功能
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        // 1. 触摸反馈 - emoji点击动画和震动
+        document.querySelectorAll('.timeline-marker').forEach(marker => {
+            let longPressTimer;
+            
+            // 触摸开始
+            marker.addEventListener('touchstart', (e) => {
+                marker.classList.add('touched');
+                
+                // 震动反馈
+                if (navigator.vibrate) {
+                    navigator.vibrate(10);
+                }
+                
+                // 长按检测（500ms）
+                longPressTimer = setTimeout(() => {
+                    createHeartBurst(marker);
+                    if (navigator.vibrate) {
+                        navigator.vibrate([30, 50, 30]);
+                    }
+                }, 500);
+            });
+            
+            marker.addEventListener('touchend', () => {
+                marker.classList.remove('touched');
+                clearTimeout(longPressTimer);
+            });
+            
+            marker.addEventListener('touchcancel', () => {
+                marker.classList.remove('touched');
+                clearTimeout(longPressTimer);
+            });
+        });
+        
+        // 创建爱心爆炸效果
+        function createHeartBurst(element) {
+            const hearts = ['❤️', '💕', '💖', '✨', '⭐'];
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'burst-particle';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = centerX + 'px';
+                heart.style.top = centerY + 'px';
+                
+                const angle = (Math.PI * 2 * i) / 8;
+                const distance = 50 + Math.random() * 30;
+                heart.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+                heart.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+        
+        // 2. 双击卡片放大
+        timelineItems.forEach(item => {
+            const content = item.querySelector('.timeline-content');
+            let lastTap = 0;
+            
+            content.addEventListener('touchend', (e) => {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                
+                if (tapLength < 300 && tapLength > 0) {
+                    // 双击检测到
+                    content.classList.toggle('zoomed');
+                    if (navigator.vibrate) {
+                        navigator.vibrate(20);
+                    }
+                    e.preventDefault();
+                }
+                lastTap = currentTime;
+            });
+        });
+        
+        // 3. 滑动手势支持
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        timelineItems.forEach(item => {
+            const content = item.querySelector('.timeline-content');
+            
+            content.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            });
+            
+            content.addEventListener('touchmove', (e) => {
+                if (!touchStartX || !touchStartY) return;
+                
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+                
+                const diffX = touchStartX - touchX;
+                const diffY = touchStartY - touchY;
+                
+                // 横向滑动效果
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+                    content.style.transform = `translateX(${-diffX * 0.3}px)`;
+                }
+            });
+            
+            content.addEventListener('touchend', () => {
+                content.style.transform = '';
+                touchStartX = 0;
+                touchStartY = 0;
+            });
+        });
+        
+        // 4. 设备倾斜时粒子移动
+        if (window.DeviceOrientationEvent && isMobile) {
+            window.addEventListener('deviceorientation', (e) => {
+                const gamma = e.gamma || 0; // 左右倾斜 (-90 到 90)
+                const beta = e.beta || 0;   // 前后倾斜 (-180 到 180)
+                
+                // 限制范围
+                const x = Math.max(-30, Math.min(30, gamma));
+                const y = Math.max(-30, Math.min(30, beta - 45));
+                
+                starsContainer.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+            });
+        }
+        
+        // 5. 首次访问时显示滑动提示（仅手机端）
+        if (isMobile && !localStorage.getItem('swipe_hint_shown')) {
+            setTimeout(() => {
+                const hint = document.createElement('div');
+                hint.className = 'swipe-hint';
+                hint.innerHTML = '👆 长按emoji有惊喜<br>👈 双击卡片放大';
+                document.body.appendChild(hint);
+                
+                setTimeout(() => {
+                    hint.classList.add('fade-out');
+                    setTimeout(() => hint.remove(), 500);
+                }, 4000);
+                
+                localStorage.setItem('swipe_hint_shown', 'true');
+            }, 2000);
+        }
 
         // 初始触发一次
         window.dispatchEvent(new Event('scroll'));

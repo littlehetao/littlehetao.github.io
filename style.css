@@ -564,6 +564,24 @@ main {
     animation: pulse 2s ease-in-out infinite, pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+.timeline-marker:hover {
+    animation: jump 0.6s ease-out infinite !important;
+}
+
+@keyframes jump {
+    0%, 100% {
+        transform: scale(1.3) translateY(0) rotate(0deg);
+    }\n    25% {
+        transform: scale(1.4) translateY(-8px) rotate(10deg);
+    }
+    50% {
+        transform: scale(1.35) translateY(-12px) rotate(-5deg);
+    }
+    75% {
+        transform: scale(1.38) translateY(-6px) rotate(5deg);
+    }
+}
+
 @keyframes pop {
     0% {
         transform: scale(0.5);
@@ -684,6 +702,28 @@ main {
     color: #ff6b6b;
     margin-bottom: 0.5rem;
     font-size: 1.4rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.timeline-content:hover h3 {
+    transform: scale(1.05);
+    animation: titleWiggle 0.5s ease-in-out;
+    color: #ff5252;
+}
+
+@keyframes titleWiggle {
+    0%, 100% {
+        transform: scale(1.05) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.08) rotate(1deg);
+    }
+    50% {
+        transform: scale(1.06) rotate(-1deg);
+    }
+    75% {
+        transform: scale(1.07) rotate(0.5deg);
+    }
 }
 
 .timeline-content .date {
@@ -721,11 +761,53 @@ main {
     border-color: rgba(255, 154, 86, 0.3);
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 4px 8px rgba(255, 154, 86, 0.2);
+    animation: dateBounce 0.6s ease-out;
+}
+
+@keyframes dateBounce {
+    0%, 100% {
+        transform: translateY(-2px) scale(1.05);
+    }
+    20% {
+        transform: translateY(-6px) scale(1.08) rotate(2deg);
+    }
+    40% {
+        transform: translateY(-3px) scale(1.06) rotate(-1deg);
+    }
+    60% {
+        transform: translateY(-5px) scale(1.07) rotate(1deg);
+    }
+    80% {
+        transform: translateY(-3px) scale(1.055) rotate(0deg);
+    }
 }
 
 .timeline-content p {
     color: #555;
     line-height: 1.8;
+}
+
+/* 悔浮时文字逐个弹出 */
+.timeline-content:hover p {
+    animation: textBounce 0.8s ease-out;
+}
+
+@keyframes textBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    10% {
+        transform: translateY(-3px);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-2px);
+    }
+    40% {
+        transform: translateY(0);
+    }
 }
 
 /* Quotes Container */
@@ -1169,6 +1251,132 @@ footer {
     font-weight: 600;
 }
 
+/* 📱 手机端交互样式 */
+
+/* 触摸反馈 */
+.timeline-marker {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.timeline-marker.touched {
+    transform: scale(1.5) !important;
+    transition: transform 0.1s ease-out;
+}
+
+/* 爱心爆炸粒子 */
+.burst-particle {
+    position: fixed;
+    font-size: 1.5rem;
+    pointer-events: none;
+    z-index: 9999;
+    animation: burstOut 1s ease-out forwards;
+}
+
+@keyframes burstOut {
+    0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--burst-x), var(--burst-y)) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* 双击放大卡片 */
+.timeline-content.zoomed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1) !important;
+    z-index: 1000;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+    animation: zoomIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.timeline-content.zoomed::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* 增大触摸目标 */
+@media (max-width: 768px) {
+    .timeline-marker {
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+        left: -9px;
+    }
+    
+    .back-to-top {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        bottom: 30px;
+        right: 20px;
+    }
+}
+
+/* 滑动提示 */
+.swipe-hint {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    text-align: center;
+    z-index: 10000;
+    animation: hintPulse 2s ease-in-out infinite;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    line-height: 1.8;
+}
+
+.swipe-hint.fade-out {
+    animation: fadeOutHint 0.5s ease-out forwards;
+}
+
+@keyframes hintPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+@keyframes fadeOutHint {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
 /* Footer */
 footer {
     background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
@@ -1184,15 +1392,42 @@ footer {
     .timeline-content {
         transform-style: flat !important;
         perspective: none !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
     .timeline-content:hover {
         transform: translateX(5px) scale(1.01) !important;
     }
     
+    /* 触摸时的即时反馈 */
+    .timeline-content:active {
+        transform: scale(0.98) !important;
+        transition: transform 0.1s ease;
+    }
+    
     /* 减少星星数量 */
     .star:nth-child(n+15) {
         display: none;
+    }
+    
+    /* 减少彩色粒子 */
+    .color-particle:nth-child(n+10) {
+        display: none;
+    }
+    
+    /* 禁用emoji动画避免滚动抖动 */
+    .timeline-marker {
+        animation: none !important;
+    }
+    
+    .timeline-item.visible .timeline-marker {
+        animation: pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+    }
+    
+    /* 更大的文字和行距 */
+    body {
+        font-size: 16px;
+        line-height: 1.8;
     }
     
     header h1 {
@@ -1206,12 +1441,16 @@ footer {
 
     nav .container {
         flex-wrap: wrap;
-        gap: 0.3rem;
+        gap: 0.5rem;
     }
 
     nav a {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .section {
@@ -1224,6 +1463,22 @@ footer {
     
     .section h3 {
         font-size: 1.2rem;
+    }
+    
+    /* 时间轴优化 */
+    .timeline-item {
+        padding-left: 55px;
+        margin-bottom: 3rem;
+    }
+    
+    .timeline-content {
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .timeline-content p {
+        font-size: 1rem;
+        line-height: 1.8;
     }
     
     /* 小朋友卡片 - 手机上每行2个 */
