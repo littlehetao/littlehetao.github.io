@@ -328,11 +328,9 @@ main {
 /* Stories section with color transition */
 #stories {
     position: relative;
-    --scroll-hue: 15;
     background: linear-gradient(180deg,
-        hsla(var(--scroll-hue), 100%, 97%, 1) 0%,
-        hsla(calc(var(--scroll-hue) + 10), 100%, 96%, 1) 100%);
-    transition: background 1.5s ease;
+        hsla(15, 100%, 97%, 1) 0%,
+        hsla(25, 100%, 96%, 1) 100%);
     overflow: hidden;
 }
 
@@ -344,7 +342,7 @@ main {
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at 50% 50%,
-        hsla(var(--scroll-hue), 80%, 85%, 0.1) 0%,
+        hsla(15, 80%, 85%, 0.1) 0%,
         transparent 50%);
     animation: rotateGlow 20s linear infinite;
     pointer-events: none;
@@ -462,6 +460,7 @@ main {
         0 0 10px rgba(255, 154, 86, 0.3),
         0 0 20px rgba(255, 154, 86, 0.1);
     animation: glowLine 3s ease-in-out infinite;
+    z-index: 1;
 }
 
 @keyframes glowLine {
@@ -493,26 +492,10 @@ main {
     top: 0;
     width: 2px;
     height: 0%;
-    background: linear-gradient(180deg, 
-        #ff9a56 0%, 
-        #ff6b6b 50%,
-        #fd79a8 100%);
+    background: #ff9a56;
     border-radius: 1px;
-    box-shadow: 
-        0 0 15px rgba(255, 154, 86, 0.6),
-        0 0 30px rgba(255, 107, 107, 0.4);
     transition: height 0.1s linear;
-    z-index: 1;
-}
-
-.timeline-progress::after {
-    content: '⭐';
-    position: absolute;
-    bottom: -8px;
-    left: -7px;
-    font-size: 1rem;
-    animation: glowPulse 1.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 8px rgba(255, 154, 86, 0.8));
+    z-index: 5;
 }
 
 @keyframes glowPulse {
@@ -544,6 +527,7 @@ main {
     opacity: 0;
     transform: translateX(-30px);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
 }
 
 .timeline-item.visible {
@@ -567,7 +551,7 @@ main {
         0 2px 6px rgba(0, 0, 0, 0.1),
         0 0 0 4px rgba(255, 154, 86, 0.1),
         0 0 20px rgba(255, 154, 86, 0.2);
-    z-index: 10;
+    z-index: 100;
     animation: pulse 2s ease-in-out infinite;
     transform: scale(0.8);
     opacity: 0.5;
