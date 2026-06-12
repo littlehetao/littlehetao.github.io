@@ -292,6 +292,73 @@ main {
 }
 
 /* Timeline */
+/* 星空粒子背景 */
+.stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, rgba(255, 215, 100, 0.8) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: twinkleStar 3s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 215, 100, 0.5);
+}
+
+@keyframes twinkleStar {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* Stories section with color transition */
+#stories {
+    position: relative;
+    --scroll-hue: 15;
+    background: linear-gradient(180deg,
+        hsla(var(--scroll-hue), 100%, 97%, 1) 0%,
+        hsla(calc(var(--scroll-hue) + 10), 100%, 96%, 1) 100%);
+    transition: background 1.5s ease;
+    overflow: hidden;
+}
+
+#stories::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%,
+        hsla(var(--scroll-hue), 80%, 85%, 0.1) 0%,
+        transparent 50%);
+    animation: rotateGlow 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotateGlow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .timeline-intro {
     text-align: center;
     color: #ff9a56;
@@ -391,7 +458,23 @@ main {
         rgba(255, 107, 107, 0.8) 80%,
         rgba(255, 107, 107, 0.3) 100%);
     border-radius: 1px;
-    box-shadow: 0 0 10px rgba(255, 154, 86, 0.3);
+    box-shadow: 
+        0 0 10px rgba(255, 154, 86, 0.3),
+        0 0 20px rgba(255, 154, 86, 0.1);
+    animation: glowLine 3s ease-in-out infinite;
+}
+
+@keyframes glowLine {
+    0%, 100% {
+        box-shadow: 
+            0 0 10px rgba(255, 154, 86, 0.3),
+            0 0 20px rgba(255, 154, 86, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 0 15px rgba(255, 154, 86, 0.5),
+            0 0 30px rgba(255, 154, 86, 0.2);
+    }
 }
 
 .timeline::after {
@@ -401,6 +484,46 @@ main {
     top: 0;
     font-size: 1rem;
     animation: sparkle 3s ease-in-out infinite;
+}
+
+/* 滚动进度指示器 */
+.timeline-progress {
+    position: absolute;
+    left: 12px;
+    top: 0;
+    width: 2px;
+    height: 0%;
+    background: linear-gradient(180deg, 
+        #ff9a56 0%, 
+        #ff6b6b 50%,
+        #fd79a8 100%);
+    border-radius: 1px;
+    box-shadow: 
+        0 0 15px rgba(255, 154, 86, 0.6),
+        0 0 30px rgba(255, 107, 107, 0.4);
+    transition: height 0.1s linear;
+    z-index: 1;
+}
+
+.timeline-progress::after {
+    content: '⭐';
+    position: absolute;
+    bottom: -8px;
+    left: -7px;
+    font-size: 1rem;
+    animation: glowPulse 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 154, 86, 0.8));
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        transform: scale(0.9);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
 }
 
 @keyframes sparkle {
@@ -418,25 +541,14 @@ main {
     position: relative;
     padding-left: 45px;
     margin-bottom: 2.5rem;
-    animation: fadeInUp 0.6s ease-out backwards;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.timeline-item:nth-child(2) { animation-delay: 0.15s; }
-.timeline-item:nth-child(3) { animation-delay: 0.2s; }
-.timeline-item:nth-child(4) { animation-delay: 0.25s; }
-.timeline-item:nth-child(5) { animation-delay: 0.3s; }
-.timeline-item:nth-child(n+6) { animation-delay: 0.35s; }
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .timeline-marker {
@@ -457,6 +569,27 @@ main {
         0 0 20px rgba(255, 154, 86, 0.2);
     z-index: 10;
     animation: pulse 2s ease-in-out infinite;
+    transform: scale(0.8);
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+.timeline-item.visible .timeline-marker {
+    transform: scale(1);
+    opacity: 1;
+    animation: pulse 2s ease-in-out infinite, pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes pulse {
@@ -487,6 +620,38 @@ main {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* 连接线装饰 */
+.timeline-content::after {
+    content: '';
+    position: absolute;
+    left: -45px;
+    top: 20px;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(255, 154, 86, 0.3) 0%,
+        rgba(255, 154, 86, 0.6) 50%,
+        rgba(255, 154, 86, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.timeline-item.visible .timeline-content::after {
+    opacity: 1;
+    animation: drawLine 0.6s ease-out;
+}
+
+@keyframes drawLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 40px;
+    }
 }
 
 .timeline-content::before {
@@ -506,12 +671,29 @@ main {
 }
 
 .timeline-content:hover {
-    transform: translateX(8px) scale(1.01);
+    transform: translateX(8px) scale(1.01) rotateY(2deg) rotateX(-1deg);
     box-shadow: 
         0 8px 25px rgba(255, 154, 86, 0.2),
         0 0 40px rgba(255, 154, 86, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        -5px 5px 15px rgba(0, 0, 0, 0.05);
     border-left-width: 5px;
+}
+
+/* 3D鼠标跟随效果 */
+.timeline-content {
+    --mouse-x: 0.5;
+    --mouse-y: 0.5;
+}
+
+@media (hover: hover) {
+    .timeline-item:hover .timeline-content {
+        transform: 
+            translateX(8px) 
+            scale(1.01)
+            rotateY(calc((var(--mouse-x) - 0.5) * 5deg))
+            rotateX(calc((var(--mouse-y) - 0.5) * -3deg));
+    }
 }
 
 .timeline-content h3 {
@@ -531,12 +713,30 @@ main {
     border-radius: 20px;
     border: 1px solid rgba(255, 154, 86, 0.2);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.visible .timeline-content .date {
+    animation: flipIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s backwards;
+}
+
+@keyframes flipIn {
+    0% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0);
+        opacity: 1;
+    }
 }
 
 .timeline-content:hover .date {
     background: linear-gradient(135deg, rgba(255, 154, 86, 0.15) 0%, rgba(255, 154, 86, 0.08) 100%);
     border-color: rgba(255, 154, 86, 0.3);
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 8px rgba(255, 154, 86, 0.2);
 }
 
 .timeline-content p {
@@ -996,6 +1196,21 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* 移动端禁用3D效果 */
+    .timeline-content {
+        transform-style: flat !important;
+        perspective: none !important;
+    }
+    
+    .timeline-content:hover {
+        transform: translateX(5px) scale(1.01) !important;
+    }
+    
+    /* 减少星星数量 */
+    .star:nth-child(n+15) {
+        display: none;
+    }
+    
     header h1 {
         font-size: 1.8rem;
         padding: 0 1rem;
@@ -1058,6 +1273,15 @@ footer {
     .timeline::before {
         left: 10px;
         width: 2px;
+    }
+    
+    .timeline-progress {
+        left: 10px;
+    }
+    
+    .timeline-progress::after {
+        left: -7px;
+        font-size: 0.9rem;
     }
     
     .timeline-item {
