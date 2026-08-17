@@ -89,6 +89,66 @@
                 </div>
 
                 <div class="timeline-item">
+                    <div class="timeline-marker">👑</div>
+                    <div class="timeline-content">
+                        <h3>欢迎灿灿</h3>
+                        <p class="date">📅 2025年9月5日</p>
+                        <img src="image/activities/welcome_cancan.jpg" alt="灿灿给团子戴发箍" class="card-photo" loading="lazy">
+                        <img src="image/activities/tuanzi_headband.jpg" alt="团子戴着发箍笑得开心" class="card-photo" loading="lazy" style="margin-top: 1rem;">
+                        <p>欢迎灿灿加入大家庭！灿灿给团子戴上发箍，团子笑得合不拢嘴～</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">🛞</div>
+                    <div class="timeline-content">
+                        <h3>轮胎探索升级</h3>
+                        <p class="date">📅 2025年9月5日</p>
+                        <img src="image/activities/tire_play.jpg" alt="孩子们一起推轮胎" class="card-photo" loading="lazy">
+                        <p>孩子们对轮胎的探索升级：从上学期简单的"座驾"和"床"，到现在能灵活移动、Roman扶着轮胎行走，甚至能独立抬起轮胎。手部力量、平衡感和协调能力都有了显著提升。游戏中的互助场景自然发生——当核桃说"请帮忙"时，一禾立即热情回应"宝宝来帮忙"，孩子们自发形成了美好的社交能力。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">🎨</div>
+                    <div class="timeline-content">
+                        <h3>粉笔涂鸦</h3>
+                        <p class="date">📅 2025年9月5日</p>
+                        <img src="image/activities/chalk_drawing.jpg" alt="一禾和夏天在地上用粉笔画画" class="card-photo" loading="lazy">
+                        <p>一禾和夏天在地上用粉笔画画，老师简单的"鱼"图案激发了孩子们的想象力，他们用线条创造性地表现出"钓鱼"的情景。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">🤝</div>
+                    <div class="timeline-content">
+                        <h3>手拉手放学</h3>
+                        <p class="date">📅 2025年9月5日</p>
+                        <img src="image/activities/holding_hands.jpg" alt="大家手拉手放学" class="card-photo" loading="lazy">
+                        <p>放学路上，大家手拉手一起走，小小的手，大大的情谊。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">🍦</div>
+                    <div class="timeline-content">
+                        <h3>一禾的冰淇淋</h3>
+                        <p class="date">📅 2025年9月5日</p>
+                        <img src="image/activities/yihe_icecream.jpg" alt="一禾拿着篮球和锥桶变身冰淇淋" class="card-photo" loading="lazy">
+                        <p>一禾拿着篮球和锥桶，变身超大号"冰淇淋"！</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">🪢</div>
+                    <div class="timeline-content">
+                        <h3>跳绳掉进去啦</h3>
+                        <p class="date">📅 2025年9月5日</p>
+                        <p>核桃通过大臂摇大绳时，发现跳绳掉进了地板缝，就好像发现了新大陆一样兴奋。他努力调整手的动作，让跳绳与地板缝完美重合——完成后非常满足，开心地说出"掉进去啦～"。这是孩子内心追求完美、享受掌控感的自然流露。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
                     <div class="timeline-marker">🌱</div>
                     <div class="timeline-content">
                         <h3>多肉种植日</h3>
@@ -317,11 +377,6 @@
         const timeline = document.querySelector('.timeline');
         const timelineItems = document.querySelectorAll('.timeline-item');
         const storiesSection = document.getElementById('stories');
-        
-        // 创建滚动进度指示器
-        const progressIndicator = document.createElement('div');
-        progressIndicator.className = 'timeline-progress';
-        timeline.appendChild(progressIndicator);
 
         // 创建星空粒子背景
         const starsContainer = document.createElement('div');
@@ -342,9 +397,6 @@
         window.addEventListener('scroll', () => {
             const timelineRect = timeline.getBoundingClientRect();
             const scrollProgress = Math.max(0, Math.min(1, -timelineRect.top / (timelineRect.height - window.innerHeight)));
-            
-            // 更新进度条
-            progressIndicator.style.height = `${scrollProgress * 100}%`;
             
             // 视差滚动效果
             starsContainer.style.transform = `translateY(${scrollProgress * 50}px)`;

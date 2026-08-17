@@ -329,8 +329,8 @@ main {
 #stories {
     position: relative;
     background: linear-gradient(180deg,
-        hsla(15, 100%, 97%, 1) 0%,
-        hsla(25, 100%, 96%, 1) 100%);
+        #fdfcfb 0%,
+        #f9f7f4 100%);
     overflow: hidden;
 }
 
@@ -342,7 +342,7 @@ main {
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at 50% 50%,
-        hsla(15, 80%, 85%, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 0%,
         transparent 50%);
     animation: rotateGlow 20s linear infinite;
     pointer-events: none;
@@ -451,29 +451,16 @@ main {
     bottom: 0;
     width: 2px;
     background: linear-gradient(180deg, 
-        rgba(255, 154, 86, 0.3) 0%, 
-        rgba(255, 154, 86, 0.8) 20%,
-        rgba(255, 107, 107, 0.8) 80%,
-        rgba(255, 107, 107, 0.3) 100%);
+        #fef3c7 0%,
+        #fde68a 25%,
+        #fcd34d 50%,
+        #fbbf24 75%,
+        #f59e0b 100%);
     border-radius: 1px;
     box-shadow: 
-        0 0 10px rgba(255, 154, 86, 0.3),
-        0 0 20px rgba(255, 154, 86, 0.1);
-    animation: glowLine 3s ease-in-out infinite;
+        0 0 10px rgba(251, 191, 36, 0.3),
+        0 0 20px rgba(251, 191, 36, 0.1);
     z-index: 1;
-}
-
-@keyframes glowLine {
-    0%, 100% {
-        box-shadow: 
-            0 0 10px rgba(255, 154, 86, 0.3),
-            0 0 20px rgba(255, 154, 86, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 0 15px rgba(255, 154, 86, 0.5),
-            0 0 30px rgba(255, 154, 86, 0.2);
-    }
 }
 
 .timeline::after {
@@ -483,19 +470,6 @@ main {
     top: 0;
     font-size: 1rem;
     animation: sparkle 3s ease-in-out infinite;
-}
-
-/* 滚动进度指示器 */
-.timeline-progress {
-    position: absolute;
-    left: 12px;
-    top: 0;
-    width: 2px;
-    height: 0%;
-    background: #ff9a56;
-    border-radius: 1px;
-    transition: height 0.1s linear;
-    z-index: 5;
 }
 
 @keyframes glowPulse {
@@ -540,7 +514,7 @@ main {
     left: -3px;
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #fff 0%, #fffaf0 100%);
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
     border: 2px solid #ff9a56;
     border-radius: 50%;
     display: flex;
@@ -552,7 +526,6 @@ main {
         0 0 0 4px rgba(255, 154, 86, 0.1),
         0 0 20px rgba(255, 154, 86, 0.2);
     z-index: 100;
-    animation: pulse 2s ease-in-out infinite;
     transform: scale(0.8);
     opacity: 0.5;
     transition: all 0.4s ease;
@@ -561,7 +534,7 @@ main {
 .timeline-item.visible .timeline-marker {
     transform: scale(1);
     opacity: 1;
-    animation: pulse 2s ease-in-out infinite, pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .timeline-marker:hover {
@@ -594,31 +567,14 @@ main {
     }
 }
 
-@keyframes pulse {
-    0%, 100% {
-        box-shadow: 
-            0 2px 6px rgba(0, 0, 0, 0.1),
-            0 0 0 4px rgba(255, 154, 86, 0.1),
-            0 0 20px rgba(255, 154, 86, 0.2);
-    }
-    50% {
-        box-shadow: 
-            0 2px 8px rgba(0, 0, 0, 0.15),
-            0 0 0 6px rgba(255, 154, 86, 0.2),
-            0 0 30px rgba(255, 154, 86, 0.4);
-    }
-}
-
 .timeline-content {
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.95) 0%, 
-        rgba(255, 250, 240, 0.95) 100%);
+    background: rgba(254, 243, 199, 0.85);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 
         0 3px 10px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    border-left: 4px solid #ff9a56;
+    border-left: 4px solid #fef3c7;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -626,7 +582,58 @@ main {
     perspective: 1000px;
 }
 
-/* 连接线装饰 */
+/* 从上到下渐变 - 金色系由淡变深 */
+.timeline-item:nth-child(10n+1) .timeline-content {
+    background: rgba(254, 243, 199, 0.85);
+    border-left-color: #fef3c7;
+}
+
+.timeline-item:nth-child(10n+2) .timeline-content {
+    background: rgba(254, 240, 186, 0.87);
+    border-left-color: #fef0ba;
+}
+
+.timeline-item:nth-child(10n+3) .timeline-content {
+    background: rgba(253, 234, 165, 0.89);
+    border-left-color: #fdeaa5;
+}
+
+.timeline-item:nth-child(10n+4) .timeline-content {
+    background: rgba(253, 230, 152, 0.90);
+    border-left-color: #fde698;
+}
+
+.timeline-item:nth-child(10n+5) .timeline-content {
+    background: rgba(252, 220, 130, 0.91);
+    border-left-color: #fcdc82;
+}
+
+.timeline-item:nth-child(10n+6) .timeline-content {
+    background: rgba(252, 211, 108, 0.92);
+    border-left-color: #fcd36c;
+}
+
+.timeline-item:nth-child(10n+7) .timeline-content {
+    background: rgba(251, 200, 90, 0.93);
+    border-left-color: #fbc85a;
+}
+
+.timeline-item:nth-child(10n+8) .timeline-content {
+    background: rgba(251, 191, 72, 0.94);
+    border-left-color: #fbbf48;
+}
+
+.timeline-item:nth-child(10n+9) .timeline-content {
+    background: rgba(249, 178, 54, 0.95);
+    border-left-color: #f9b236;
+}
+
+.timeline-item:nth-child(10n+10) .timeline-content {
+    background: rgba(245, 158, 11, 0.95);
+    border-left-color: #f59e0b;
+}
+
+/* 连接线装饰 - 金色渐变 */
 .timeline-content::after {
     content: '';
     position: absolute;
@@ -635,9 +642,9 @@ main {
     width: 40px;
     height: 2px;
     background: linear-gradient(90deg, 
-        rgba(255, 154, 86, 0.3) 0%,
-        rgba(255, 154, 86, 0.6) 50%,
-        rgba(255, 154, 86, 0) 100%);
+        rgba(251, 191, 36, 0.3) 0%, 
+        rgba(251, 191, 36, 0.6) 50%, 
+        rgba(251, 191, 36, 0) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -675,8 +682,8 @@ main {
 .timeline-content:hover {
     transform: translateX(8px) scale(1.01) rotateY(2deg) rotateX(-1deg);
     box-shadow: 
-        0 8px 25px rgba(255, 154, 86, 0.2),
-        0 0 40px rgba(255, 154, 86, 0.1),
+        0 8px 25px rgba(251, 191, 36, 0.2),
+        0 0 40px rgba(251, 191, 36, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.8),
         -5px 5px 15px rgba(0, 0, 0, 0.05);
     border-left-width: 5px;
@@ -1178,6 +1185,158 @@ footer {
     box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
 }
 
+/* 资料角 */
+.resources-header {
+    background: linear-gradient(135deg, #5c9f88 0%, #447c76 100%);
+}
+
+.resource-welcome {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fffef8 0%, #f1f8ed 100%);
+}
+
+.resource-welcome h2 {
+    color: #447c76;
+    border-bottom-color: #88b49f;
+}
+
+.resource-welcome-icon {
+    flex: 0 0 auto;
+    font-size: 4rem;
+}
+
+.resource-shelves {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.resource-shelf {
+    padding: 2rem;
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    scroll-margin-top: 6rem;
+}
+
+.resource-shelf-wide {
+    grid-column: 1 / -1;
+}
+
+.resource-shelf-science {
+    background: linear-gradient(145deg, #eef9f7 0%, #dcefeb 100%);
+}
+
+.resource-shelf-stories {
+    background: linear-gradient(145deg, #fff4e8 0%, #ffe5ca 100%);
+}
+
+.resource-shelf-ideas {
+    background: linear-gradient(145deg, #f8f3ff 0%, #e9def8 100%);
+}
+
+.resource-shelf-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.resource-shelf h2 {
+    color: #3d6761;
+    margin-bottom: 0.75rem;
+}
+
+.resource-shelf > p {
+    color: #5f6967;
+    min-height: 3.2rem;
+}
+
+.resource-empty {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    color: #77817f;
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px dashed rgba(68, 124, 118, 0.25);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.resource-item {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+}
+
+.resource-item h3 {
+    margin: 0.35rem 0 0.65rem;
+    color: #3d6761;
+}
+
+.resource-item-meta {
+    color: #8a9693;
+    font-size: 0.85rem;
+}
+
+.resource-item a {
+    color: #447c76;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.resource-item-featured {
+    max-width: 820px;
+    margin: 1.5rem auto 0;
+}
+
+.resource-item-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(35, 73, 66, 0.14);
+}
+
+.resource-story-link {
+    display: block;
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: #447c76;
+    color: white !important;
+    border-radius: 10px;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.resource-story-link:hover {
+    background: #315f5a;
+    transform: translateY(-2px);
+}
+
+.milk-story-pages {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f7fbf5;
+}
+
+.story-page + .story-page {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 2px dashed rgba(68, 124, 118, 0.3);
+}
+
+.story-page-number {
+    width: fit-content;
+    margin: 0 auto 1rem;
+    padding: 0.35rem 1.2rem;
+    color: white;
+    background: #447c76;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
 /* 友谊故事相关样式 */
 .friend-desc {
     font-size: 0.95rem;
@@ -1491,6 +1650,18 @@ footer {
     .grid {
         grid-template-columns: 1fr !important;
     }
+
+    .resource-shelves {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-welcome {
+        align-items: flex-start;
+    }
+
+    .resource-welcome-icon {
+        font-size: 2.5rem;
+    }
     
     .card {
         padding: 1.2rem;
@@ -1512,15 +1683,6 @@ footer {
     .timeline::before {
         left: 10px;
         width: 2px;
-    }
-    
-    .timeline-progress {
-        left: 10px;
-    }
-    
-    .timeline-progress::after {
-        left: -7px;
-        font-size: 0.9rem;
     }
     
     .timeline-item {
@@ -1599,6 +1761,10 @@ footer {
     
     .card {
         padding: 1rem;
+    }
+
+    .resource-welcome {
+        display: block;
     }
     
     /* 小朋友卡片 - 更小屏幕上单列 */
