@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口水的故事 - 核桃的资料角</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: #edf5f2;
+            color: #1f2d3d;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+        header.resources-header {
+            background: linear-gradient(135deg, #7cc8ff 0%, #4db3ff 100%);
+            color: white;
+            padding: 32px 0 28px;
+            text-align: center;
+            box-shadow: 0 8px 18px rgba(40, 129, 205, 0.18);
+        }
+        header.resources-header h1 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.96;
+        }
+        nav {
+            background: rgba(255,255,255,0.85);
+            border-bottom: 1px solid rgba(131,175,191,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(8px);
+        }
+        nav .container {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding: 12px 18px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #217ab9;
+            background: #eefaf9;
+            border: 2px solid #cfeef4;
+            border-radius: 999px;
+            padding: 8px 18px;
+            font-weight: 700;
+        }
+        main {
+            padding: 26px 0 48px;
+        }
+        .poster-wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            background: #f4fbf6;
+            border: 6px solid #4ea3df;
+            border-radius: 28px;
+            box-shadow: 0 16px 32px rgba(40, 98, 171, 0.12);
+            padding: 18px;
+        }
+        .poster-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 18px;
+            background: white;
+        }
+        .download-box {
+            margin-top: 16px;
+            text-align: center;
+        }
+        .download-link {
+            display: inline-block;
+            background: #2f90df;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 800;
+            box-shadow: 0 10px 18px rgba(47, 144, 223, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <header class="resources-header">
+        <div class="container">
+            <h1>💧 口水的故事 ✨</h1>
+            <p class="subtitle">口水从哪里来，又为什么会让嘴巴舒服？</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="index.html">🏠 首页</a>
+            <a href="resources.html">📚 资料角</a>
+            <a href="#story">💧 开始阅读</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="story" class="poster-wrap">
+            <img class="poster-image" src="image/resources/saliva-story-page-1.png" alt="口水的故事海报第1页">
+            <img class="poster-image" src="image/resources/saliva-story-page-2.png" alt="口水的故事海报第2页" style="margin-top: 18px;">
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="text-align:center; color:#4d6475; padding: 0 0 26px; margin: 0;">&copy; 2026 小核桃成长日志 ❤️</p>
+        </div>
+    </footer>
+</body>
+</html>
